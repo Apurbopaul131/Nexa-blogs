@@ -1,8 +1,10 @@
-import type { Metadata } from "next";
+"use client";
+import Footer from "@/components/shared/Footer";
+import Header from "@/components/shared/Header";
+import ReduxProvider from "@/redux/ReduxProvider";
+
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
 
 const roboto = Roboto({
   weight: "400",
@@ -10,11 +12,11 @@ const roboto = Roboto({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "NexaBlog",
-  description:
-    "Welcome to NexaBlog – where innovation meets imagination in the dynamic realm of technology, offering a thrilling journey through the latest trends and groundbreaking discoveries in the world of tech!",
-};
+// export const metadata: Metadata = {
+//   title: "NexaBlog",
+//   description:
+//     "Welcome to NexaBlog – where innovation meets imagination in the dynamic realm of technology, offering a thrilling journey through the latest trends and groundbreaking discoveries in the world of tech!",
+// };
 
 export default function RootLayout({
   children,
@@ -22,12 +24,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <Header />
-        <div className="min-h-screen">{children}</div>
-        <Footer />
-      </body>
-    </html>
+    <ReduxProvider>
+      <html lang="en">
+        <body className={roboto.className}>
+          <Header />
+          <div className="min-h-screen">{children}</div>
+          <Footer />
+        </body>
+      </html>
+    </ReduxProvider>
   );
 }

@@ -1,10 +1,19 @@
+"use client";
 import BlogCard from "@/components/ui/BlogCard";
+import Spinner from "@/components/ui/Spinner";
+import { useGetBlogsQuery } from "@/redux/api/blogApi";
 import { Blog } from "@/types";
 
-const BlogsPage = async () => {
-  const res = await fetch("http://localhost:5000/blogs");
-  const blogs = await res.json();
+const BlogsPage = () => {
+  const { data: blogs, isLoading } = useGetBlogsQuery({});
+  // const res = await fetch("http://localhost:5000/blogs", {
+  //   cache: "no-store",
+  // });
+  // const blogs = await res.json();
   console.log(blogs);
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
   return (
     <div className="my-5">
       <h1 className="text-3xl text-center my-5 font-bold">
